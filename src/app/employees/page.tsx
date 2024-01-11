@@ -27,31 +27,12 @@ const EmployeesPage = () => {
         }
         fetchAllEmployees();
     }, []);
-    const handleDelete = async (id: string) => {
-        try {
-            const response = await fetch('http://localhost:5000/api/emp/deleteemp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id }),
-            });
-            if (!response.ok) {
-                throw new Error('Failed to delete employee');
-            }
-
-            console.log(employees.filter((employee) => employee.empId === employee.empId))
-            setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee.id !== id));
-        } catch (error) {
-            console.error('Error deleting employee:', error);
-        }
-    };
 
 
     return (
         <div className='bg-white'>
             <h1>All Employees</h1>
-            <App data={employees} onDelete={handleDelete} />
+            <App data={employees} />
         </div>
 
     );

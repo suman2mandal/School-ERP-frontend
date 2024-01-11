@@ -1,6 +1,8 @@
 import React from 'react';
 import { Table, Button, Space } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import axios from "axios";
+import {LocalBackURL} from "@/constants/constants";
 
 //ToDo -- Data will be shown based on user selection - there will be check boxes and he will get the data in table that he selected 
 
@@ -16,12 +18,44 @@ interface DataType {
 
 }
 
+const handleDelete = (_id: string) => {
+    try {
+        // const response = await fetch('http://localhost:5000/api/emp/deleteemp', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({ id }),
+        // });
+        // if (!response.ok) {
+        //     throw new Error('Failed to delete employee');
+        // }
+
+        console.log(_id);
+
+        (async () => {
+            try{
+                const response = await axios.post(LocalBackURL + '/api/emp/deleteemp',{
+                    _id: _id
+                });
+
+            }catch(e){
+                console.log("Error!")
+            }
+        })();
+
+        // console.log(employees.filter((employee) => employee.empId === employee.empId))
+        // setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee.id !== id));
+    } catch (error) {
+        console.error('Error deleting employee:', error);
+    }
+};
+
 interface AppProps {
     data: DataType[];
-    onDelete: (id: string) => void;
 }
 
-const App: React.FC<AppProps> = ({ data, onDelete }) => {
+const App: React.FC<AppProps> = ({ data }) => {
     const columns: ColumnsType<DataType> = [
         {
             title: 'Employee Id',
@@ -61,8 +95,8 @@ const App: React.FC<AppProps> = ({ data, onDelete }) => {
         },
         {
             title: 'Actions',
-            dataIndex: 'id',
-            render: (id: string) => (
+            dataIndex: '_id',
+            render: (_id: string) => (
                 <>
                     <Space size="middle">
                         <Button
@@ -77,7 +111,7 @@ const App: React.FC<AppProps> = ({ data, onDelete }) => {
                         <Button
                             type="text"
                             style={{ color: 'red', border: '1px red solid', marginLeft: '8px', backgroundColor: 'lightgoldenrodyellow' }}
-                            onClick={() => onDelete(id)}
+                            onClick={()=>{handleDelete(_id)}}
                         >
                             Delete
                         </Button>
