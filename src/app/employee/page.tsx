@@ -52,6 +52,7 @@ interface Employee {
     empCV: string;
 
 }
+import {LocalBackURL} from "@/constants/constants";
 
 const EmployeePage = () => {
     const [employee, setEmployee] = useState<any[]>([]);
@@ -60,7 +61,7 @@ const EmployeePage = () => {
         async function fetchOneEmployee() {
             try {
                 const empId = 'EMP001';
-                const response = await fetch('http://localhost:5000/api/emp/singleemp', {
+                const response = await fetch(LocalBackURL+'/api/emp/singleemp', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -202,8 +203,8 @@ const EmployeePage = () => {
                             <span className="field-rectangle h-8 w-48 border border-solid border-gray-300 overflow-hidden overflow-ellipsis flex items-center justify-center italic bg-green-400 font-semibold">
                                 {employee && employee.length && employee.length > 0
                                     ? (fields[index] === 'empDOB'
-                                        ? new Date((employee[0] as Employee)[fields[index] as keyof Employee]).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                                        : (employee[0] as Employee)[fields[index] as keyof Employee]) || "N/A"
+                                    ? new Date((employee[0] as Employee)[fields[index] as keyof Employee]).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                                    : String((employee[0] as Employee)[fields[index] as keyof Employee])) || "N/A"
                                     : "N/A"}
                             </span>
                         </div>

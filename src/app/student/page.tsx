@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-
+import {LocalBackURL} from "@/constants/constants";
 interface Student {
     address?: string;
     age?: number;
@@ -15,14 +15,14 @@ interface Student {
 }
 
 const StudentPage = () => {
-    const [student, setStudent] = useState<Student | null>(null);
+    const [student, setStudent] = useState<Student|any | null>(null);
 
     useEffect(() => {
         async function fetchOneStudent() {
             try {
                 const school = '659790d29d43fe7d1758bbda';
                 const registerationNumber = 259;
-                const response = await fetch('http://localhost:5000/api/students/onestudent', {
+                const response = await fetch(LocalBackURL+'/api/students/onestudent', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -114,9 +114,11 @@ const StudentPage = () => {
                             <h2 className="text-lg font-sans mb-2">{heading}</h2>
                             <span className="field-rectangle h-8 w-48 border border-solid border-gray-300 overflow-hidden overflow-ellipsis flex items-center justify-center italic bg-slate-400">
                                 {student && student.length && student.length > 0
-                                    ? (fields[index] === 'registerationDate' || fields[index] === 'dob'
-                                        ? new Date((student[0] as Student)[fields[index] as keyof Student]).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                                        : (student[0] as Student)[fields[index] as keyof Student]) || "N/A"
+                                    ? fields[index] === 'registerationDate' || fields[index] === 'dob'
+                                        ? (student[0] as Student)[fields[index] as keyof Student]
+                                            ? new Date((student[0] as Student)[fields[index] as keyof Student] as string).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                                            : "N/A"
+                                        : (student[0] as Student)[fields[index] as keyof Student] ?? "N/A"
                                     : "N/A"}
                             </span>
                         </div>

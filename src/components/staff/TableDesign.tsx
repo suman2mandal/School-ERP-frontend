@@ -1,6 +1,6 @@
 import { SearchOutlined } from '@ant-design/icons';
 import React, { useRef, useState } from 'react';
-import Highlighter from 'react-highlight-words';
+import Highlignter from 'react-highlight-words';
 import type { InputRef } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
@@ -24,11 +24,9 @@ type DataIndex = keyof DataType;
 
 interface AppProps {
     data: DataType[];
-    onDelete: (id: string) => void;
-
 }
 
-const App: React.FC<AppProps> = ({ data, onDelete }) => {
+const App: React.FC<AppProps> = ({ data }) => {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
@@ -114,7 +112,7 @@ const App: React.FC<AppProps> = ({ data, onDelete }) => {
         },
         render: (text) =>
             searchedColumn === dataIndex ? (
-                <Highlighter
+                <Highlignter
                     highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
                     searchWords={[searchText]}
                     autoEscape
@@ -187,7 +185,7 @@ const App: React.FC<AppProps> = ({ data, onDelete }) => {
                         <Button
                             type="text"
                             style={{ color: 'red', border: '1px red solid', marginLeft: '8px', backgroundColor: 'lightgoldenrodyellow' }}
-                            onClick={()=>{handleDelete(_id)}}
+                            onClick={()=>{}}
                         >
                             Delete
                         </Button>
