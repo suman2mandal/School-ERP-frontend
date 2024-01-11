@@ -171,8 +171,8 @@ const App: React.FC<AppProps> = ({ data, onDelete }) => {
         },
         {
             title: 'Actions',
-            dataIndex: 'id',
-            render: (id: string) => (
+            dataIndex: '_id',
+            render: (_id: string) => (
                 <>
                     <Space size="middle">
                         <Button
@@ -187,7 +187,7 @@ const App: React.FC<AppProps> = ({ data, onDelete }) => {
                         <Button
                             type="text"
                             style={{ color: 'red', border: '1px red solid', marginLeft: '8px', backgroundColor: 'lightgoldenrodyellow' }}
-                            onClick={() => onDelete(id)}
+                            onClick={()=>{handleDelete(_id)}}
                         >
                             Delete
                         </Button>
