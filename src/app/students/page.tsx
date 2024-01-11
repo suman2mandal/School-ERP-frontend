@@ -9,7 +9,7 @@ const StudentsPage = () => {
         async function fetchAllStudents() {
             try {
                 const school = '659790d29d43fe7d1758bbda';
-                const studentClass = 12;
+                const studentClass = 2;
                 const response = await fetch('http://localhost:5000/api/students/allstudents', {
                     method: 'POST',
                     headers: {
@@ -31,7 +31,7 @@ const StudentsPage = () => {
     }, []);
 
     return (
-        <div>
+        <div className='bg-white'>
             <h1>All Students</h1>
             <App data={students} />
         </div>

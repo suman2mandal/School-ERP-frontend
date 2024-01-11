@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Button, Space } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
 //ToDo -- Data will be shown based on user selection - there will be check boxes and he will get the data in table that he selected 
@@ -77,11 +77,26 @@ const App: React.FC<AppProps> = ({ data }) => {
             dataIndex: 'age',
             key: 'age',
         },
+        {
+            title: 'Actions',
+            dataIndex: 'id',
+            render: (id: string) => (
+                <Space size="middle">
+                    <Button
+                        type="text"
+                        style={{ color: 'red' }}
+                        onClick={() => { }}
+                    >
+                        Delete
+                    </Button>
+                </Space>
+            ),
+        },
     ];
 
     return (
-        <Table columns={columns} dataSource={data} />
-    );
+        <Table columns={columns} dataSource={data} />);
+
 };
 
 export default App;
