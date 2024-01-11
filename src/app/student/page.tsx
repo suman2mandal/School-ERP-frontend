@@ -12,9 +12,8 @@ interface Student {
     phoneNumber?: string;
     length?: number;
     image: string;
-
-
 }
+
 const StudentPage = () => {
     const [student, setStudent] = useState<Student | null>(null);
 
