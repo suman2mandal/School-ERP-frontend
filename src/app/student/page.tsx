@@ -1,28 +1,19 @@
 "use client"
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import {LocalBackURL} from "@/constants/constants";
-interface Student {
-    address?: string;
-    age?: number;
-    registerationNumber?: string;
-    registerationDate?: string;
-    fatherName?: string;
-    motherName?: string;
-    phoneNumber?: string;
-    length?: number;
-    image: string;
-}
+import { LocalBackURL } from "@/constants/constants";
+import { headings, fields } from '@/constants/studentinfo';
+import { Student } from '@/datatypes/student/student.i';
 
 const StudentPage = () => {
-    const [student, setStudent] = useState<Student|any | null>(null);
+    const [student, setStudent] = useState<Student | any | null>(null);
 
     useEffect(() => {
         async function fetchOneStudent() {
             try {
                 const school = '659790d29d43fe7d1758bbda';
                 const registerationNumber = 259;
-                const response = await fetch(LocalBackURL+'/api/students/onestudent', {
+                const response = await fetch(LocalBackURL + '/api/students/onestudent', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -42,56 +33,7 @@ const StudentPage = () => {
         fetchOneStudent();
     }, []);
 
-    const headings = [
-        "Registeration Number",
-        "Registeration Date",
-        "Class",
-        "Section",
-        "Name",
-        "Father's Name",
-        "Mother's Name",
-        "Phone Number",
-        "Alternate Number",
-        "Gender",
-        "Date Of Birth",
-        "Age",
-        "Email",
-        "Monthly Fees",
-        "Address",
-        "Town",
-        "City",
-        "District",
-        "State",
-        "Pincode",
-        "Landmark"
 
-    ]
-    // Define an array of fields
-    const fields = [
-        "registerationNumber",
-        "registerationDate",
-        "studentClass",
-        "section",
-        "studentName",
-        "fatherName",
-        "motherName",
-        "phoneNumber",
-        "alternatePhoneNumber",
-        "gender",
-        "dob",
-        "age",
-        "email",
-        "monthlyFees",
-        "address",
-        "town",
-        "city",
-        "district",
-        "state",
-        "pincode",
-        "landMark"
-    ];
-
-    console.log(student);
 
     return (
         <div className="flex items-center justify-center h-screen">

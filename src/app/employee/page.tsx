@@ -1,58 +1,10 @@
 "use client"
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { headings, fields } from '@/constants/empinfo';
+import { Employee } from '@/datatypes/employees/employee.i';
 
-interface Employee {
-    empName: string;
-    empEmail: string;
-    empRelativeName: string;
-    empGender: string;
-    empDOB: Date;
-    empNumberOne: string;
-    empNumberTwo: string;
-    empWhatsappNumber: string;
-    empCategory: string;
-    empReligion: string;
-    empBloodGrp: string;
-    empAadharNumber: string;
-    empId: string;
-    empQualification: string;
-    empClassPreffered: string;
-    empProfile: string;
-    empDepartment: string;
-    empDesignation: string;
-    empPanCardNumber: string;
-    empPfNumber: string;
-    empBankName: string;
-    empBankAcNumber: string;
-    empBankIfscCode: string;
-    empBasicSalary: number;
-    empHraAmount: number;
-    empDaAmount: number;
-    empAllowances: number;
-    empOtherWages: number;
-    empPfAmount: number;
-    empTdsAmount: number;
-    empEsicAmount: number;
-    empProfessionalTax: number;
-    empAddress: string;
-    empVillage: string;
-    empBlock: string;
-    empDistrict: string;
-    empState: string;
-    empPinCode: string;
-    empLandMark: string;
-    empPhoto: string;
-    empSign: string;
-    empExperience: string;
-    empQualificationPhoto: string;
-    empIdProof: string;
-    empPanCardPhoto: string;
-    empAadharCardPhoto: string;
-    empCV: string;
-
-}
-import {LocalBackURL} from "@/constants/constants";
+import { LocalBackURL } from "@/constants/constants";
 
 const EmployeePage = () => {
     const [employee, setEmployee] = useState<any[]>([]);
@@ -61,7 +13,7 @@ const EmployeePage = () => {
         async function fetchOneEmployee() {
             try {
                 const empId = 'EMP001';
-                const response = await fetch(LocalBackURL+'/api/emp/singleemp', {
+                const response = await fetch(LocalBackURL + '/api/emp/singleemp', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -81,104 +33,7 @@ const EmployeePage = () => {
         fetchOneEmployee();
     }, []);
 
-    const headings = [
-        "Id",
-        "Name",
-        "Relative Name",
-        "Gender",
-        "Date of Birth",
-        "Blood Group",
-        "Phone Number",
-        "Alternate Number",
-        "Whatsapp Number",
-        "Email",
-        "Category",
-        "Profile",
-        "Department",
-        "Designation",
-        "Religion",
-        "Aadhar Number",
-        "Qualification",
-        "Class Preffered",
-        "Subject Preffered",
-        "Bank Name",
-        "Bank A/C Number",
-        "Bank IFSC",
-        "Pan Card Number",
-        "Pf Number",
-        "Basic Salary",
-        "HRA Amount",
-        "DA Amount",
-        "Allowances",
-        "Other Vages",
-        "PF Amount",
-        "TDS Amount",
-        "ESIC Amount",
-        "Professional Tax",
-        "Address",
-        "Village",
-        "Block",
-        "District",
-        "State",
-        "Pincode",
-        "Land Mark",
-        "Sign Photo",
-        "Experience",
-        "Qualification Photo",
-        "Id Proof",
-        "Pan Card Photo",
-        "Aadhar Card Photo"
-    ]
 
-    const fields = [
-        'empId',
-        'empName',
-        'empRelativeName',
-        'empGender',
-        'empDOB',
-        'empBloodGrp',
-        'empNumberOne',
-        'empNumberTwo',
-        'empWhatsappNumber',
-        'empEmail',
-        'empCategory',
-        'empProfile',
-        'empDepartment',
-        'empDesignation',
-        'empReligion',
-        'empAadharNumber',
-        'empQualification',
-        'empClassPreffered',
-        'empSubjectPreffered',
-        'empBankName',
-        'empBankAcNumber',
-        'empBankIfscCode',
-        'empPanCardNumber',
-        'empPfNumber',
-        'empBasicSalary',
-        'empHraAmount',
-        'empDaAmount',
-        'empAllowances',
-        'empOtherWages',
-        'empPfAmount',
-        'empTdsAmount',
-        'empEsicAmount',
-        'empProfessionalTax',
-        'empAddress',
-        'empVillage',
-        'empBlock',
-        'empDistrict',
-        'empState',
-        'empPinCode',
-        'empLandMark',
-        'empSign',
-        'empExperience',
-        'empQualificationPhoto',
-        'empIdProof',
-        'empPanCardPhoto',
-        'empAadharCardPhoto',
-        'empCV'
-    ]
 
     return (
         <div className="flex items-center justify-center h-screen">
@@ -203,8 +58,8 @@ const EmployeePage = () => {
                             <span className="field-rectangle h-8 w-48 border border-solid border-gray-300 overflow-hidden overflow-ellipsis flex items-center justify-center italic bg-green-400 font-semibold">
                                 {employee && employee.length && employee.length > 0
                                     ? (fields[index] === 'empDOB'
-                                    ? new Date((employee[0] as Employee)[fields[index] as keyof Employee]).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                                    : String((employee[0] as Employee)[fields[index] as keyof Employee])) || "N/A"
+                                        ? new Date((employee[0] as Employee)[fields[index] as keyof Employee]).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                                        : String((employee[0] as Employee)[fields[index] as keyof Employee])) || "N/A"
                                     : "N/A"}
                             </span>
                         </div>

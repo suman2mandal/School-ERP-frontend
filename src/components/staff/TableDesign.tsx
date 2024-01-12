@@ -151,7 +151,7 @@ const App: React.FC<AppProps> = ({ data }) => {
             key: 'empEmail'
         },
         {
-            title: 'Relative Name',
+            title: 'Father/Spouse Name',
             dataIndex: 'empRelativeName',
             key: 'motherName'
         },
@@ -185,7 +185,7 @@ const App: React.FC<AppProps> = ({ data }) => {
                         <Button
                             type="text"
                             style={{ color: 'red', border: '1px red solid', marginLeft: '8px', backgroundColor: 'lightgoldenrodyellow' }}
-                            onClick={()=>{}}
+                            onClick={() => { }}
                         >
                             Delete
                         </Button>
