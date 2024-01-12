@@ -6,8 +6,6 @@ import { Button, Input, Space, Table } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 
-//ToDo -- Data will be shown based on user selection - there will be check boxes and he will get the data in table that he selected 
-
 interface DataType {
     key: string;
     name: string;
@@ -58,15 +56,6 @@ const App: React.FC<AppProps> = ({ data }) => {
                     style={{ marginBottom: 8, display: 'block' }}
                 />
                 <Space>
-                    <Button
-                        type="primary"
-                        onClick={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
-                        icon={<SearchOutlined />}
-                        size="small"
-                        style={{ width: 90 }}
-                    >
-                        Search
-                    </Button>
                     <Button
                         onClick={() => clearFilters && handleReset(clearFilters)}
                         size="small"
