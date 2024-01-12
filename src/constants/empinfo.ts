@@ -1,7 +1,7 @@
 export const headings = [
     "Id",
     "Name",
-    "Relative Name",
+    "Father/Spouse Name",
     "Gender",
     "Date of Birth",
     "Blood Group",

@@ -4,8 +4,12 @@ import Image from 'next/image';
 import { LocalBackURL } from "@/constants/constants";
 import { headings, fields } from '@/constants/studentinfo';
 import { Student } from '@/datatypes/student/student.i';
+import { Formik, Field, Form } from 'formik';
+import TextField from '@mui/material/TextField';
+import { useFormikContext } from 'formik';
 
 const StudentPage = () => {
+
     const [student, setStudent] = useState<Student | any | null>(null);
 
     useEffect(() => {
@@ -33,42 +37,49 @@ const StudentPage = () => {
         fetchOneStudent();
     }, []);
 
-
-
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="outerbox border border-solid border-black p-4">
-                <div className="outerbox  p-4 flex flex-col items-center">
-                    <div className="rounded-full overflow-hidden w-24 h-24 mb-4">
+        <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center ">
+                <div className="mb-8">
+                    <div className="rounded-full overflow-hidden w-40 h-40 mt-10">
                         <Image
                             className="rounded-full"
                             src="/student-icon.png"
                             alt="image description"
                             layout="responsive"
-                            width={384}
-                            height={384}
+                            width={800}
+                            height={800}
                         />
                     </div>
+
                 </div>
-                <div className="grid grid-cols-5 gap-4 gap-y-6">
-                    {headings.map((heading, index) => (
-                        <div key={index} className="flex flex-col">
-                            <h2 className="text-lg font-sans mb-2">{heading}</h2>
-                            <span className="field-rectangle h-8 w-48 border border-solid border-gray-300 overflow-hidden overflow-ellipsis flex items-center justify-center italic bg-slate-400">
-                                {student && student.length && student.length > 0
-                                    ? fields[index] === 'registerationDate' || fields[index] === 'dob'
-                                        ? (student[0] as Student)[fields[index] as keyof Student]
-                                            ? new Date((student[0] as Student)[fields[index] as keyof Student] as string).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                                            : "N/A"
-                                        : (student[0] as Student)[fields[index] as keyof Student] ?? "N/A"
-                                    : "N/A"}
-                            </span>
-                        </div>
-                    ))}
-                </div>
+            </div>
+
+            <div className="grid grid-cols-4 gap-8 ">
+                {headings.map((heading, index) => (
+                    <div key={index} className="flex flex-col">
+                        <h2 className="text-lg font-sans mb-2 z-10 relative top-6 text-blue-600">
+                            <div className='bg-white p-1 inline-block deco ml-5'>
+                                {heading}
+                            </div>
+                        </h2>
+                        <span className="field-rectangle h-16 border border-solid border-gray-300 overflow-hidden overflow-ellipsis flex items-center justify-center mb-[-4ch]" style={{ width: "35ch" }}>
+                            {student && student.length && student.length > 0
+                                ? fields[index] === 'registerationDate' || fields[index] === 'dob'
+                                    ? (student[0] as Student)[fields[index] as keyof Student]
+                                        ? new Date((student[0] as Student)[fields[index] as keyof Student] as string).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                                        : "N/A"
+                                    : (student[0] as Student)[fields[index] as keyof Student] ?? "N/A"
+                                : "N/A"}
+                        </span>
+                    </div>
+                ))}
             </div>
         </div>
     );
+
+
+
 };
 
 export default StudentPage;
