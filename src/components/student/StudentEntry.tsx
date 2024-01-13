@@ -10,29 +10,10 @@ import * as Yup from 'yup';
 import SectionWrapper from "@/components/Wrapper/SectionWrapper";
 import LayoutWrapper from "@/components/Wrapper/LayoutWrapper";
 import {Autocomplete, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {FORM_VALIDATION} from "@/constants/validation/newStudents"
+import {indianStates, indianDistricts} from "@/constants/locationdata";
+import {FormValues} from "@/datatypes/student/newStudent.i";
 
-interface FormValues {
-    registerationNumber: string;
-    registerationDate: Date;
-    studentClass: number;
-    image: string;
-    phoneNumber: string;
-    section: string;
-    studentName: string;
-    fatherName: string;
-    motherName: string;
-    gender: string;
-    dob: Date;
-    alternatePhoneNumber: string;
-    email: string;
-    address: string;
-    town: string;
-    city: string;
-    district: string;
-    state: string;
-    pincode: string;
-    landMark: string;
-}
 
 const StudentForm: React.FC = () => {
     let initialValues: FormValues = {
@@ -57,120 +38,6 @@ const StudentForm: React.FC = () => {
         pincode: '131001',
         landMark: 'Bhasin cement store',
     };
-
-    const FORM_VALIDATION = Yup.object().shape({
-        registerationNumber: Yup.string()
-            .required('Registration Number is required'),
-
-        registerationDate: Yup.date()
-            .required('Registration Date is required'),
-
-        studentClass: Yup.number()
-            .typeError('Student Class must be a number')
-            .positive('Student Class must be a positive number')
-            .required('Student Class is required'),
-
-        image: Yup.string()
-            .url('Invalid Image URL')
-            .required('Image URL is required'),
-
-        phoneNumber: Yup.string()
-            .matches(/^\d{10}$/, 'Phone Number must be exactly 10 digits')
-            .required('Phone Number is required'),
-
-        section: Yup.string()
-            .required('Section is required'),
-
-        studentName: Yup.string()
-            .required('Student Name is required'),
-
-        fatherName: Yup.string()
-            .required("Father's Name is required"),
-
-        motherName: Yup.string()
-            .required("Mother's Name is required"),
-
-        gender: Yup.string()
-            .oneOf(['Male', 'Female', 'Other'], 'Invalid gender')
-            .required('Gender is required'),
-
-        dob: Yup.date()
-            .required('Date of Birth is required'),
-
-        alternatePhoneNumber: Yup.string()
-            .matches(/^\d{10}$/, 'Alternate Phone Number must be exactly 10 digits')
-            .required('Alternate Phone Number is required'),
-
-        email: Yup.string()
-            .email('Invalid email address')
-            .required('Email is required'),
-
-        address: Yup.string()
-            .required('Address is required'),
-
-        town: Yup.string()
-            .required('Town is required'),
-
-        city: Yup.string()
-            .required('City is required'),
-
-        district: Yup.string()
-            .required('District is required'),
-
-        state: Yup.string()
-            .required('State is required'),
-
-        pincode: Yup.string()
-            .matches(/^\d{6}$/, 'Invalid Pincode. Must be 6 digits')
-            .required('Pincode is required'),
-
-        landMark: Yup.string()
-            .required('Landmark is required'),
-    });
-
-
-    const indianStates: string[] = [
-        'Andhra Pradesh',
-        'Arunachal Pradesh',
-        'Assam',
-        'Bihar',
-        'Chhattisgarh',
-        'Goa',
-        'Gujarat',
-        'Haryana',
-        'Himachal Pradesh',
-        'Jharkhand',
-        'Karnataka',
-        'Kerala',
-        'Madhya Pradesh',
-        'Maharashtra',
-        'Manipur',
-        'Meghalaya',
-        'Mizoram',
-        'Nagaland',
-        'Odisha',
-        'Punjab',
-        'Rajasthan',
-        'Sikkim',
-        'Tamil Nadu',
-        'Telangana',
-        'Tripura',
-        'Uttar Pradesh',
-        'Uttarakhand',
-        'West Bengal',
-        'Arunachal Pradesh',
-        'Jammu and Kashmir',
-        'Ladakh',
-        'Delhi',
-        'Puducherry',
-        'Chandigarh',
-        'Dadra and Nagar Haveli and Daman and Diu',
-        'Lakshadweep'
-    ];
-    const indianDistricts: string[] = [
-        'Adilabad', 'Agra', 'Ahmedabad', 'Ahmednagar', 'Aizawl', 'Ajmer', 'Akola', 'Alappuzha', 'Aligarh', 'Alirajpur',
-        'Allahabad', 'Almora', 'Alwar', 'Ambala', 'Ambedkar Nagar', 'Amravati', 'Amreli', 'Amritsar', 'Amroha', 'Anand',
-        'Anantapur', 'Anantnag', 'Angul', 'Anjaw', 'Anuppur', 'Araria', 'Ariyalur', 'Arwal', 'Ashoknagar', 'Auraiya'];
 
     interface StateDropdownProps extends FieldProps {
         label: string;
@@ -240,18 +107,6 @@ const StudentForm: React.FC = () => {
             </div>
         );
     };
-
-    interface CalendarFieldProps extends FieldProps {
-        // Add any specific props you need
-    }
-
-    // const BasicDateCalendar= ()=> {
-    //     return (
-    //         <LocalizationProvider dateAdapter={AdapterDayjs}>
-    //             <DateCalendar />
-    //         </LocalizationProvider>
-    //     );
-    // }
 
     type MyFieldHookConfig = FieldHookConfig<string> & { name: string };
 
@@ -517,10 +372,8 @@ const StudentForm: React.FC = () => {
                             />
                         </div>
                     </SectionWrapper>
-                    <div
-                        className="grid grid-cols-1 gap-4 sm:grid-cols-4 md:grid-cols-4 items-center justify-items-center mb-8">
+                    <SectionWrapper>
                         <Field component={StateDropdown} name="state" label="State" placeholder="Select a state"/>
-
 
                         <div className="flex flex-col">
                             <Field
@@ -546,20 +399,14 @@ const StudentForm: React.FC = () => {
                             />
                             <ErrorMessage name="landMark" component="div" className="text-red-500"/>
                         </div>
-                            {/*<Button variant="contained" color="success" style={{width: "35ch", height: "100%"}}>*/}
-                            {/*    Submit*/}
-                            {/*</Button>*/}
-                            <button
-                                className="group relative overflow-hidden rounded-l bg-green-500 text-lg font-bold text-white h-full"
-                                style={{width: "28ch"}}>
-                                Submit
-                                <div
-                                    className="absolute inset-0 h-full w-full scale-0 rounded-l transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                            </button>
-                            {/*<Button variant="contained" disableElevation>*/}
-                            {/*    */}
-                            {/*</Button>*/}
-                        </div>
+                        <button
+                            className="group relative overflow-hidden rounded-l bg-green-500 text-lg font-bold text-white h-full"
+                            style={{width: "28ch"}}>
+                            Submit
+                            <div
+                                className="absolute inset-0 h-full w-full scale-0 rounded-l transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                        </button>
+                    </SectionWrapper>
                 </Form>
             </Formik>
         </LayoutWrapper>
