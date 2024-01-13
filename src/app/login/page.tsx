@@ -3,6 +3,8 @@ import React, { useState, FormEvent } from "react";
 import { LocalBackURL } from "@/constants/constants";
 import axios from "axios";
 import LoginPage from "@/components/login/login";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface SchoolData {
     schoolId: string;
@@ -33,9 +35,11 @@ const LoginScreen: React.FC = () => {
 
             } else if (schoolId === data.schoolId && schoolPassword === data.schoolPassword) {
                 console.log("Login success");
+                toast.success('Login success', { position: toast.POSITION.TOP_RIGHT });
 
             } else {
                 console.log("Login fail")
+                toast.error('Can be wrong credentials', { position: toast.POSITION.TOP_RIGHT });
 
             }
         } catch (error) {
