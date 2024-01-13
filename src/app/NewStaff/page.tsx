@@ -8,58 +8,9 @@ import * as Yup from 'yup';
 import LayoutWrapper from "@/components/Wrapper/LayoutWrapper";
 import SectionWrapper from "@/components/Wrapper/SectionWrapper";
 import {Autocomplete, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-
-interface FormValues {
-    school: string;
-    empName: string;
-    empEmail: string;
-    empRelativeName: string;
-    empGender: string;
-    empDOB: Date;
-    empNumberOne: string;
-    empNumberTwo: string;
-    empWhatsappNumber: string;
-    empCategory: string;
-    empReligion: string;
-    empBloodGrp: string;
-    empAadharNumber: string;
-    empId: string;
-    empQualification: string;
-    empClassPreffered: string;
-    empSubjectPreffered: string;
-    empProfile: string;
-    empDepartment: string;
-    empDesignation: string; //
-    empPanCardNumber: string;
-    empPfNumber: string;
-    empBankName: string;
-    empBankAcNumber: string;
-    empBankIfscCode: string;
-    empBasicSalary: number;
-    empHraAmount: number;
-    empDaAmount: number;
-    empAllowances: number;
-    empOtherWages: number;
-    empPfAmount: number;
-    empTdsAmount: number;
-    empEsicAmount: number;
-    empProfessionalTax: number;
-    empAddress: string;
-    empVillage: string;
-    empBlock: string;
-    empDistrict: string;
-    empState: string;
-    empPinCode: string;
-    empLandMark: string;
-    empPhoto: string;
-    empSign: string;
-    empExperience: string;
-    empQualificationPhoto: string;
-    empIdProof: string;
-    empPanCardPhoto: string;
-    empAadharCardPhoto: string;
-    empCV: string;
-}
+import {FormValues} from "@/datatypes/employees/newEmployee.i";
+import {FORM_VALIDATION} from "@/constants/validation/newStaff";
+import {indianStates, indianDistricts} from "@/constants/locationdata";
 
 const EmployeeForm: React.FC = () => {
     let initialValues: FormValues = {
@@ -113,150 +64,6 @@ const EmployeeForm: React.FC = () => {
         empAadharCardPhoto: '',
         empCV: '',
     };
-
-    const FORM_VALIDATION = Yup.object().shape({
-        empName: Yup.string().required('Employee Name is required'),
-
-        empEmail: Yup.string().email('Invalid email address').required('Email is required'),
-
-        empRelativeName: Yup.string().required('Relative Name is required'),
-
-        empGender: Yup.string().required('Gender is required'),
-
-        empDOB: Yup.date().required('Date of Birth is required'),
-
-        empNumberOne: Yup.string().required('Phone Number is required'),
-
-        empNumberTwo: Yup.string().required('Alternate Phone Number is required'),
-
-        empWhatsappNumber: Yup.string().required('WhatsApp Number is required'),
-
-        empCategory: Yup.string().required('Category is required'),
-
-        empReligion: Yup.string().required('Religion is required'),
-
-        empBloodGrp: Yup.string().required('Blood Group is required'),
-
-        empAadharNumber: Yup.string()
-            .matches(/^\d{12}$/, 'Aadhar Number must be exactly 12 digits')
-            .required('Aadhar Number is required'),
-
-        empId: Yup.string().required('Employee ID is required'),
-
-        empQualification: Yup.string().required('Qualification is required'),
-
-        empClassPreffered: Yup.string().required('Preferred Class is required'),
-
-        empSubjectPreffered: Yup.string().required('Preferred Subject is required'),
-
-        empProfile: Yup.string().required('Employee Profile is required'),
-
-        empDepartment: Yup.string().required('Department is required'),
-
-        empDesignation: Yup.string().required('Designation is required'),
-
-        empPanCardNumber: Yup.string().required('PAN Card Number is required'),
-
-        empPfNumber: Yup.string().required('PF Number is required'),
-
-        empBankName: Yup.string().required('Bank Name is required'),
-
-        empBankAcNumber: Yup.string().required('Bank Account Number is required'),
-
-        empBankIfscCode: Yup.string().required('Bank IFSC Code is required'),
-
-        empBasicSalary: Yup.number().required('Basic Salary is required'),
-
-        empHraAmount: Yup.number().required('HRA Amount is required'),
-
-        empDaAmount: Yup.number().required('DA Amount is required'),
-
-        empAllowances: Yup.number().required('Allowances are required'),
-
-        empOtherWages: Yup.number().required('Other Wages are required'),
-
-        empPfAmount: Yup.number().required('PF Amount is required'),
-
-        empTdsAmount: Yup.number().required('TDS Amount is required'),
-
-        empEsicAmount: Yup.number().required('ESIC Amount is required'),
-
-        empProfessionalTax: Yup.number().required('Professional Tax is required'),
-
-        empAddress: Yup.string().required('Address is required'),
-
-        empVillage: Yup.string().required('Village is required'),
-
-        empBlock: Yup.string().required('Block is required'),
-
-        empDistrict: Yup.string().required('District is required'),
-
-        empState: Yup.string().required('State is required'),
-
-        empPinCode: Yup.string().required('PIN Code is required'),
-
-        empLandMark: Yup.string().required('Landmark is required'),
-
-        empPhoto: Yup.string().required('Photo URL is required'),
-
-        empSign: Yup.string().required('Signature URL is required'),
-
-        empExperience: Yup.string().required('Experience details are required'),
-
-        empQualificationPhoto: Yup.string().required('Qualification Photo URL is required'),
-
-        empIdProof: Yup.string().required('ID Proof URL is required'),
-
-        empPanCardPhoto: Yup.string().required('PAN Card Photo URL is required'),
-
-        empAadharCardPhoto: Yup.string().required('Aadhar Card Photo URL is required'),
-
-        empCV: Yup.string().required('CV URL is required'),
-    });
-
-    const indianStates: string[] = [
-        'Andhra Pradesh',
-        'Arunachal Pradesh',
-        'Assam',
-        'Bihar',
-        'Chhattisgarh',
-        'Goa',
-        'Gujarat',
-        'Haryana',
-        'Himachal Pradesh',
-        'Jharkhand',
-        'Karnataka',
-        'Kerala',
-        'Madhya Pradesh',
-        'Maharashtra',
-        'Manipur',
-        'Meghalaya',
-        'Mizoram',
-        'Nagaland',
-        'Odisha',
-        'Punjab',
-        'Rajasthan',
-        'Sikkim',
-        'Tamil Nadu',
-        'Telangana',
-        'Tripura',
-        'Uttar Pradesh',
-        'Uttarakhand',
-        'West Bengal',
-        'Arunachal Pradesh',
-        'Jammu and Kashmir',
-        'Ladakh',
-        'Delhi',
-        'Puducherry',
-        'Chandigarh',
-        'Dadra and Nagar Haveli and Daman and Diu',
-        'Lakshadweep'
-    ];
-    const indianDistricts: string[] = [
-        'Adilabad', 'Agra', 'Ahmedabad', 'Ahmednagar', 'Aizawl', 'Ajmer', 'Akola', 'Alappuzha', 'Aligarh', 'Alirajpur',
-        'Allahabad', 'Almora', 'Alwar', 'Ambala', 'Ambedkar Nagar', 'Amravati', 'Amreli', 'Amritsar', 'Amroha', 'Anand',
-        'Anantapur', 'Anantnag', 'Angul', 'Anjaw', 'Anuppur', 'Araria', 'Ariyalur', 'Arwal', 'Ashoknagar', 'Auraiya'];
-
     interface StateDropdownProps extends FieldProps {
         label: string;
         placeholder?: string;
@@ -361,7 +168,6 @@ const EmployeeForm: React.FC = () => {
                         <MenuItem value="others">Others</MenuItem>
                     </Field>
                 </FormControl>
-                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
             </div>
         );
     };
@@ -385,7 +191,6 @@ const EmployeeForm: React.FC = () => {
                         <MenuItem value="st">ST</MenuItem>
                     </Field>
                 </FormControl>
-                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
             </div>
         );
     };
@@ -410,7 +215,6 @@ const EmployeeForm: React.FC = () => {
                         <MenuItem value="christian">christian</MenuItem>
                     </Field>
                 </FormControl>
-                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
             </div>
         );
     };
@@ -438,7 +242,6 @@ const EmployeeForm: React.FC = () => {
                         <MenuItem value="O-">0-</MenuItem>
                     </Field>
                 </FormControl>
-                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
             </div>
         );
     };
@@ -483,7 +286,7 @@ const EmployeeForm: React.FC = () => {
                             label="Email"
                             variant="outlined"
                             name="empEmail"
-                            placeholder="Employee Email"
+                            placeholder="Email"
                             style={{width: "35ch"}}
                         />
                         <ErrorMessage name="empEmail" component="div" className="text-red-500"/>
@@ -500,31 +303,10 @@ const EmployeeForm: React.FC = () => {
                         />
                         <ErrorMessage name="empRelativeName" component="div" className="text-red-500"/>
                     </div>
-                    {/*<div className="flex flex-col">*/}
-                    {/*    <Field*/}
-                    {/*        as={TextField}*/}
-                    {/*        id="outlined-basic"*/}
-                    {/*        label="Employee Gender"*/}
-                    {/*        variant="outlined"*/}
-                    {/*        name="empGender"*/}
-                    {/*        placeholder="Employee Gender"*/}
-                    {/*        style={{width: "35ch"}}*/}
-                    {/*    />*/}
-                    {/*    <ErrorMessage name="empGender" component="div" className="text-red-500"/>*/}
-                    {/*</div>*/}
                     <GenderSelect/>
                     </SectionWrapper>
                     <SectionWrapper>
                     <div className="flex flex-col">
-                        {/*<Field*/}
-                        {/*    as={TextField}*/}
-                        {/*    id="outlined-basic"*/}
-                        {/*    label="Date of Birth"*/}
-                        {/*    variant="outlined"*/}
-                        {/*    name="empDOB"*/}
-                        {/*    placeholder="Date of Birth"*/}
-                        {/*    style={{width: "35ch"}}*/}
-                        {/*/>*/}
                         <CustomDateTimePicker
                             id="dob"
                             name="dob"
@@ -533,7 +315,6 @@ const EmployeeForm: React.FC = () => {
                             style={{ width: "35ch" }}
                         />
                         <ErrorMessage name="dob" component="div" className="text-red-500"/>
-                        {/*<ErrorMessage name="empDOB" component="div" className="text-red-500"/>*/}
                     </div>
                     <div className="flex flex-col">
                         <Field
@@ -654,10 +435,10 @@ const EmployeeForm: React.FC = () => {
                         <Field
                             as={TextField}
                             id="outlined-basic"
-                            label="Employee Profile"
+                            label="Profile Link"
                             variant="outlined"
                             name="empProfile"
-                            placeholder="Employee Profile"
+                            placeholder="Profile Link"
                             style={{width: "35ch"}}
                         />
                         <ErrorMessage name="empProfile" component="div" className="text-red-500"/>
@@ -1057,9 +838,6 @@ const EmployeeForm: React.FC = () => {
                             />
                             <ErrorMessage name="empCV" component="div" className="text-red-500"/>
                         </div>
-                        {/* Continue adding fields as per your requirements */}
-
-
                         <button
                             className="group relative overflow-hidden rounded-l bg-green-500 text-lg font-bold text-white h-14"
                             style={{width: "28ch"}}>
