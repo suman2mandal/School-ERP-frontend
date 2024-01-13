@@ -1,12 +1,13 @@
 "use client";
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {Formik, Field, Form, ErrorMessage, FieldProps, FieldHookConfig, useField} from 'formik';
 import axios from "axios";
-import TextField from '@mui/material/TextField';
+import TextField, {TextFieldProps} from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import * as Yup from 'yup';
 import LayoutWrapper from "@/components/Wrapper/LayoutWrapper";
 import SectionWrapper from "@/components/Wrapper/SectionWrapper";
+import {Autocomplete, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 interface FormValues {
     school: string;
@@ -136,7 +137,9 @@ const EmployeeForm: React.FC = () => {
 
         empBloodGrp: Yup.string().required('Blood Group is required'),
 
-        empAadharNumber: Yup.string().required('Aadhar Number is required'),
+        empAadharNumber: Yup.string()
+            .matches(/^\d{12}$/, 'Aadhar Number must be exactly 12 digits')
+            .required('Aadhar Number is required'),
 
         empId: Yup.string().required('Employee ID is required'),
 
@@ -211,6 +214,236 @@ const EmployeeForm: React.FC = () => {
         empCV: Yup.string().required('CV URL is required'),
     });
 
+    const indianStates: string[] = [
+        'Andhra Pradesh',
+        'Arunachal Pradesh',
+        'Assam',
+        'Bihar',
+        'Chhattisgarh',
+        'Goa',
+        'Gujarat',
+        'Haryana',
+        'Himachal Pradesh',
+        'Jharkhand',
+        'Karnataka',
+        'Kerala',
+        'Madhya Pradesh',
+        'Maharashtra',
+        'Manipur',
+        'Meghalaya',
+        'Mizoram',
+        'Nagaland',
+        'Odisha',
+        'Punjab',
+        'Rajasthan',
+        'Sikkim',
+        'Tamil Nadu',
+        'Telangana',
+        'Tripura',
+        'Uttar Pradesh',
+        'Uttarakhand',
+        'West Bengal',
+        'Arunachal Pradesh',
+        'Jammu and Kashmir',
+        'Ladakh',
+        'Delhi',
+        'Puducherry',
+        'Chandigarh',
+        'Dadra and Nagar Haveli and Daman and Diu',
+        'Lakshadweep'
+    ];
+    const indianDistricts: string[] = [
+        'Adilabad', 'Agra', 'Ahmedabad', 'Ahmednagar', 'Aizawl', 'Ajmer', 'Akola', 'Alappuzha', 'Aligarh', 'Alirajpur',
+        'Allahabad', 'Almora', 'Alwar', 'Ambala', 'Ambedkar Nagar', 'Amravati', 'Amreli', 'Amritsar', 'Amroha', 'Anand',
+        'Anantapur', 'Anantnag', 'Angul', 'Anjaw', 'Anuppur', 'Araria', 'Ariyalur', 'Arwal', 'Ashoknagar', 'Auraiya'];
+
+    interface StateDropdownProps extends FieldProps {
+        label: string;
+        placeholder?: string;
+    }
+    const StateDropdown: React.FC<StateDropdownProps> = ({ field, form, label, placeholder }) => (
+        <div className="flex flex-col">
+            <FormControl variant="outlined" style={{ width: '35ch' }}>
+                <Autocomplete
+                    id="state"
+                    options={indianStates}
+                    getOptionLabel={(option) => option}
+                    value={field.value}
+                    onChange={(_, value) => form.setFieldValue('state', value)}
+                    renderInput={(params) => (
+                        <TextField {...params} label={label} variant="outlined" placeholder={placeholder} />
+                    )}
+                />
+            </FormControl>
+            <ErrorMessage name="state" component="div" className="text-red-500" />
+        </div>
+    );
+
+    interface DistrictDropdownProps extends FieldProps {
+        label: string;
+        placeholder?: string;
+        districts: string[];
+    }
+
+    const DistrictDropdown: React.FC<DistrictDropdownProps> = ({ field, form, label, placeholder, districts }) => (
+        <div className="flex flex-col">
+            <FormControl variant="outlined" style={{ width: '35ch' }}>
+                <Autocomplete
+                    id="district"
+                    options={districts}
+                    getOptionLabel={(option) => option}
+                    value={field.value}
+                    onChange={(_, value) => form.setFieldValue('district', value)}
+                    renderInput={(params) => (
+                        <TextField {...params} label={label} variant="outlined" placeholder={placeholder} />
+                    )}
+                />
+            </FormControl>
+            <ErrorMessage name="district" component="div" className="text-red-500" />
+        </div>
+    );
+
+    type MyFieldHookConfig = FieldHookConfig<string> & { name: string };
+
+    type DateTimePickerProps = MyFieldHookConfig &
+        TextFieldProps & {
+        onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    };
+
+    const CustomDateTimePicker: React.FC<DateTimePickerProps> = ({
+                                                                     name,
+                                                                     onChange,
+                                                                     ...otherProps
+                                                                 }) => {
+        const [field, meta] = useField(name);
+
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            field.onChange(event); // handle field onChange
+            if (onChange) {
+                onChange(event); // Forward the onChange event if provided
+            }
+        };
+
+        const configDateTimePicker: any = {
+            ...field,
+            ...otherProps,
+            type: "date",
+            variant: "outlined",
+            fullWidth: true,
+            InputLabelProps: {
+                shrink: true,
+            },
+            onChange: handleChange,
+        };
+
+        if (meta && meta.touched && meta.error) {
+            configDateTimePicker.error = true;
+            configDateTimePicker.helperText = meta.error;
+        }
+
+        return <TextField {...configDateTimePicker} />;
+    };
+    const GenderSelect = () => {
+        return (
+            <div className="flex flex-col">
+                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                    <InputLabel id="gender-label">Gender</InputLabel>
+                    <Field
+                        as={Select}
+                        labelId="gender-label"
+                        label="Gender"
+                        variant="outlined"
+                        name="gender"
+                        placeholder="Gender"
+                    >
+                        <MenuItem value="male">Male</MenuItem>
+                        <MenuItem value="female">Female</MenuItem>
+                        <MenuItem value="others">Others</MenuItem>
+                    </Field>
+                </FormControl>
+                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
+            </div>
+        );
+    };
+
+    const CategorySelect = () => {
+        return (
+            <div className="flex flex-col">
+                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                    <InputLabel id="empCategory-label">Category</InputLabel>
+                    <Field
+                        as={Select}
+                        labelId="empCategory-label"
+                        label="empCategory"
+                        variant="outlined"
+                        name="empCategory"
+                        placeholder="empCategory"
+                    >
+                        <MenuItem value="general">GENERAL</MenuItem>
+                        <MenuItem value="obc">OBC</MenuItem>
+                        <MenuItem value="sc">SC</MenuItem>
+                        <MenuItem value="st">ST</MenuItem>
+                    </Field>
+                </FormControl>
+                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
+            </div>
+        );
+    };
+
+    const ReligionSelect = () => {
+        return (
+            <div className="flex flex-col">
+                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                    <InputLabel id="empReligion-label">Religion</InputLabel>
+                    <Field
+                        as={Select}
+                        labelId="empReligion-label"
+                        label="empReligion"
+                        variant="outlined"
+                        name="empReligion"
+                        placeholder="empReligion"
+                    >
+                        <MenuItem value="hindu">Hindu</MenuItem>
+                        <MenuItem value="muslim">Muslim</MenuItem>
+                        <MenuItem value="sikh">Sikh</MenuItem>
+                        <MenuItem value="jain">Jain</MenuItem>
+                        <MenuItem value="christian">christian</MenuItem>
+                    </Field>
+                </FormControl>
+                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
+            </div>
+        );
+    };
+
+    const BloodGroupSelect = () => {
+        return (
+            <div className="flex flex-col">
+                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                    <InputLabel id="empBloodGrp-label">Blood Group</InputLabel>
+                    <Field
+                        as={Select}
+                        labelId="empBloodGrp-label"
+                        label="empBloodGrp"
+                        variant="outlined"
+                        name="empBloodGrp"
+                        placeholder="BloodGrp"
+                    >
+                        <MenuItem value="AB+">AB+</MenuItem>
+                        <MenuItem value="AB-">AB-</MenuItem>
+                        <MenuItem value="A+">A+</MenuItem>
+                        <MenuItem value="A-">A-</MenuItem>
+                        <MenuItem value="B+">B+</MenuItem>
+                        <MenuItem value="B-">B-</MenuItem>
+                        <MenuItem value="O+">O+</MenuItem>
+                        <MenuItem value="O-">0-</MenuItem>
+                    </Field>
+                </FormControl>
+                {/*<ErrorMessage name="gender" component="div" className="text-red-500" />*/}
+            </div>
+        );
+    };
+
+
 
     return (
         <LayoutWrapper>
@@ -247,7 +480,7 @@ const EmployeeForm: React.FC = () => {
                         <Field
                             as={TextField}
                             id="outlined-basic"
-                            label="Employee Email"
+                            label="Email"
                             variant="outlined"
                             name="empEmail"
                             placeholder="Employee Email"
@@ -267,31 +500,40 @@ const EmployeeForm: React.FC = () => {
                         />
                         <ErrorMessage name="empRelativeName" component="div" className="text-red-500"/>
                     </div>
-                    <div className="flex flex-col">
-                        <Field
-                            as={TextField}
-                            id="outlined-basic"
-                            label="Employee Gender"
-                            variant="outlined"
-                            name="empGender"
-                            placeholder="Employee Gender"
-                            style={{width: "35ch"}}
-                        />
-                        <ErrorMessage name="empGender" component="div" className="text-red-500"/>
-                    </div>
+                    {/*<div className="flex flex-col">*/}
+                    {/*    <Field*/}
+                    {/*        as={TextField}*/}
+                    {/*        id="outlined-basic"*/}
+                    {/*        label="Employee Gender"*/}
+                    {/*        variant="outlined"*/}
+                    {/*        name="empGender"*/}
+                    {/*        placeholder="Employee Gender"*/}
+                    {/*        style={{width: "35ch"}}*/}
+                    {/*    />*/}
+                    {/*    <ErrorMessage name="empGender" component="div" className="text-red-500"/>*/}
+                    {/*</div>*/}
+                    <GenderSelect/>
                     </SectionWrapper>
                     <SectionWrapper>
                     <div className="flex flex-col">
-                        <Field
-                            as={TextField}
-                            id="outlined-basic"
-                            label="Date of Birth"
-                            variant="outlined"
-                            name="empDOB"
-                            placeholder="Date of Birth"
-                            style={{width: "35ch"}}
+                        {/*<Field*/}
+                        {/*    as={TextField}*/}
+                        {/*    id="outlined-basic"*/}
+                        {/*    label="Date of Birth"*/}
+                        {/*    variant="outlined"*/}
+                        {/*    name="empDOB"*/}
+                        {/*    placeholder="Date of Birth"*/}
+                        {/*    style={{width: "35ch"}}*/}
+                        {/*/>*/}
+                        <CustomDateTimePicker
+                            id="dob"
+                            name="dob"
+                            label="DOB"
+                            type="string"
+                            style={{ width: "35ch" }}
                         />
-                        <ErrorMessage name="empDOB" component="div" className="text-red-500"/>
+                        <ErrorMessage name="dob" component="div" className="text-red-500"/>
+                        {/*<ErrorMessage name="empDOB" component="div" className="text-red-500"/>*/}
                     </div>
                     <div className="flex flex-col">
                         <Field
@@ -332,41 +574,18 @@ const EmployeeForm: React.FC = () => {
                     </SectionWrapper>
                     <SectionWrapper>
                     <div className="flex flex-col">
-                        <Field
-                            as={TextField}
-                            id="outlined-basic"
-                            label="Employee Category"
-                            variant="outlined"
-                            name="empCategory"
-                            placeholder="Employee Category"
-                            style={{width: "35ch"}}
-                        />
+                        <CategorySelect/>
                         <ErrorMessage name="empCategory" component="div" className="text-red-500"/>
                     </div>
                     <div className="flex flex-col">
-                        <Field
-                            as={TextField}
-                            id="outlined-basic"
-                            label="Employee Religion"
-                            variant="outlined"
-                            name="empReligion"
-                            placeholder="Employee Religion"
-                            style={{width: "35ch"}}
-                        />
+                        <ReligionSelect/>
                         <ErrorMessage name="empReligion" component="div" className="text-red-500"/>
                     </div>
                     <div className="flex flex-col">
-                        <Field
-                            as={TextField}
-                            id="outlined-basic"
-                            label="Blood Group"
-                            variant="outlined"
-                            name="empBloodGrp"
-                            placeholder="Blood Group"
-                            style={{width: "35ch"}}
-                        />
+                        <BloodGroupSelect/>
                         <ErrorMessage name="empBloodGrp" component="div" className="text-red-500"/>
                     </div>
+
                     <div className="flex flex-col">
                         <Field
                             as={TextField}
@@ -798,9 +1017,9 @@ const EmployeeForm: React.FC = () => {
                                 variant="outlined"
                                 name="empIdProof"
                                 placeholder="ID Proof"
-                                style={{ width: "35ch" }}
+                                style={{width: "35ch"}}
                             />
-                            <ErrorMessage name="empIdProof" component="div" className="text-red-500" />
+                            <ErrorMessage name="empIdProof" component="div" className="text-red-500"/>
                         </div>
                         <div className="flex flex-col">
                             <Field
@@ -810,9 +1029,9 @@ const EmployeeForm: React.FC = () => {
                                 variant="outlined"
                                 name="empPanCardPhoto"
                                 placeholder="Pan Card Photo"
-                                style={{ width: "35ch" }}
+                                style={{width: "35ch"}}
                             />
-                            <ErrorMessage name="empPanCardPhoto" component="div" className="text-red-500" />
+                            <ErrorMessage name="empPanCardPhoto" component="div" className="text-red-500"/>
                         </div>
                         <div className="flex flex-col">
                             <Field
@@ -822,9 +1041,9 @@ const EmployeeForm: React.FC = () => {
                                 variant="outlined"
                                 name="empAadharCardPhoto"
                                 placeholder="Aadhar Card Photo"
-                                style={{ width: "35ch" }}
+                                style={{width: "35ch"}}
                             />
-                            <ErrorMessage name="empAadharCardPhoto" component="div" className="text-red-500" />
+                            <ErrorMessage name="empAadharCardPhoto" component="div" className="text-red-500"/>
                         </div>
                         <div className="flex flex-col">
                             <Field
@@ -834,21 +1053,20 @@ const EmployeeForm: React.FC = () => {
                                 variant="outlined"
                                 name="empCV"
                                 placeholder="CV"
-                                style={{ width: "35ch" }}
+                                style={{width: "35ch"}}
                             />
-                            <ErrorMessage name="empCV" component="div" className="text-red-500" />
+                            <ErrorMessage name="empCV" component="div" className="text-red-500"/>
                         </div>
                         {/* Continue adding fields as per your requirements */}
 
 
-                        <Button
-                            className="group relative overflow-hidden rounded-l bg-green-500 text-lg font-bold text-white h-full"
-                            type="submit" variant="contained" color="primary"
-                            style={{width: "35ch", marginTop: "1rem"}}>
+                        <button
+                            className="group relative overflow-hidden rounded-l bg-green-500 text-lg font-bold text-white h-14"
+                            style={{width: "28ch"}}>
                             Submit
                             <div
                                 className="absolute inset-0 h-full w-full scale-0 rounded-l transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                        </Button>
+                        </button>
                     </SectionWrapper>
                 </Form>
             </Formik>

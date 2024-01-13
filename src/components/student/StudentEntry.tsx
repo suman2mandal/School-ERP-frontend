@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import * as Yup from 'yup';
 import SectionWrapper from "@/components/Wrapper/SectionWrapper";
 import LayoutWrapper from "@/components/Wrapper/LayoutWrapper";
-import { FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Autocomplete, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 interface FormValues {
     registerationNumber: string;
@@ -57,20 +57,6 @@ const StudentForm: React.FC = () => {
         pincode: '131001',
         landMark: 'Bhasin cement store',
     };
-
-    // useEffect(() => {
-    //     let response:FormValues;
-    //     const fetchData = async () => {
-    //         try {
-    //             response = await axios.get(LocalBackURL + '/api/students/allstudents');
-    //             console.log(response.data);
-    //         } catch (error) {
-    //             console.error("Error fetching data: ", error);
-    //         }
-    //     }
-    //     fetchData();
-    //     // initialValues = response.data;
-    // }, []);
 
     const FORM_VALIDATION = Yup.object().shape({
         registerationNumber: Yup.string()
@@ -193,16 +179,16 @@ const StudentForm: React.FC = () => {
     const StateDropdown: React.FC<StateDropdownProps> = ({ field, form, label, placeholder }) => (
         <div className="flex flex-col">
             <FormControl variant="outlined" style={{ width: '35ch' }}>
-                {/*<Autocomplete*/}
-                {/*    id="state"*/}
-                {/*    options={indianStates}*/}
-                {/*    getOptionLabel={(option) => option}*/}
-                {/*    value={field.value}*/}
-                {/*    onChange={(_, value) => form.setFieldValue('state', value)}*/}
-                {/*    renderInput={(params) => (*/}
-                {/*        <TextField {...params} label={label} variant="outlined" placeholder={placeholder} />*/}
-                {/*    )}*/}
-                {/*/>*/}
+                <Autocomplete
+                    id="state"
+                    options={indianStates}
+                    getOptionLabel={(option) => option}
+                    value={field.value}
+                    onChange={(_, value) => form.setFieldValue('state', value)}
+                    renderInput={(params) => (
+                        <TextField {...params} label={label} variant="outlined" placeholder={placeholder} />
+                    )}
+                />
             </FormControl>
             <ErrorMessage name="state" component="div" className="text-red-500" />
         </div>
@@ -217,16 +203,16 @@ const StudentForm: React.FC = () => {
     const DistrictDropdown: React.FC<DistrictDropdownProps> = ({ field, form, label, placeholder, districts }) => (
         <div className="flex flex-col">
             <FormControl variant="outlined" style={{ width: '35ch' }}>
-                {/*<Autocomplete*/}
-                {/*    id="district"*/}
-                {/*    options={districts}*/}
-                {/*    getOptionLabel={(option) => option}*/}
-                {/*    value={field.value}*/}
-                {/*    onChange={(_, value) => form.setFieldValue('district', value)}*/}
-                {/*    renderInput={(params) => (*/}
-                {/*        <TextField {...params} label={label} variant="outlined" placeholder={placeholder} />*/}
-                {/*    )}*/}
-                {/*/>*/}
+                <Autocomplete
+                    id="district"
+                    options={districts}
+                    getOptionLabel={(option) => option}
+                    value={field.value}
+                    onChange={(_, value) => form.setFieldValue('district', value)}
+                    renderInput={(params) => (
+                        <TextField {...params} label={label} variant="outlined" placeholder={placeholder} />
+                    )}
+                />
             </FormControl>
             <ErrorMessage name="district" component="div" className="text-red-500" />
         </div>
@@ -309,7 +295,7 @@ const StudentForm: React.FC = () => {
     };
 
     return (
-        
+
         <div className="px-8 py-5">
         <LayoutWrapper>
             <h1>Student Form</h1>
@@ -329,7 +315,7 @@ const StudentForm: React.FC = () => {
                     actions.setSubmitting(false);
                 }}
             >
-                
+
                 <Form>
                     <SectionWrapper>
                         <div className="flex flex-col">
@@ -445,49 +431,9 @@ const StudentForm: React.FC = () => {
                             />
                             <ErrorMessage name="section" component="div" className="text-red-500"/>
                         </div>
-                        {/*<div className="flex flex-col">*/}
-                        {/*    <Field*/}
-                        {/*        as={TextField}*/}
-                        {/*        id="outlined-basic"*/}
-                        {/*        label="Gender"*/}
-                        {/*        variant="outlined"*/}
-                        {/*        name="gender"*/}
-                        {/*        placeholder="Gender"*/}
-                        {/*        style={{width: "35ch"}}*/}
-                        {/*    />*/}
-                        {/*    <ErrorMessage name="gender" component="div" className="text-red-500" />*/}
-                        {/*</div>*/}
-
-                        {/*GenderSelect*/}
-                        {/*<Field*/}
-                        {/*    component={GenderSelect}*/}
-                        {/*    name="gender"*/}
-                        {/*    label="Gender"*/}
-                        {/*    placeholder="Gender"*/}
-                        {/*    districts={indianDistricts}*/}
-                        {/*/>*/}
                         <GenderSelect/>
 
-
-                        {/*<div className="flex flex-col">*/}
-                        {/*    <Field*/}
-                        {/*        as={TextField}*/}
-                        {/*        id="outlined-basic"*/}
-                        {/*        label="Date of Birth"*/}
-                        {/*        variant="outlined"*/}
-                        {/*        name="dob"*/}
-                        {/*        placeholder="Date of Birth"*/}
-                        {/*        style={{width: "35ch"}}*/}
-                        {/*    />*/}
-                        {/*    <ErrorMessage name="dob" component="div" className="text-red-500" />*/}
-                        {/*</div>*/}
-                        {/*<Field component={CalendarField} name="dob" />*/}
                         <div className="flex flex-col">
-                            {/*<DateCalendar*/}
-                            {/*    value={formik.values.dob}*/}
-                            {/*    onChange={value => formik.setFieldValue('dob', value)}*/}
-                            {/*/>*/}
-                            {/*<ErrorMessage name="dob" component="div" className="text-red-500"/>*/}
                             <CustomDateTimePicker
                                 id="dob"
                                 name="dob"
@@ -495,8 +441,8 @@ const StudentForm: React.FC = () => {
                                 type="string"
                                 style={{ width: "35ch" }}
                             />
+                            <ErrorMessage name="dob" component="div" className="text-red-500"/>
                         </div>
-
                     </SectionWrapper>
                     <SectionWrapper>
                         <div className="flex flex-col">
@@ -562,65 +508,58 @@ const StudentForm: React.FC = () => {
                             <ErrorMessage name="city" component="div" className="text-red-500" />
                         </div>
                         <div className="flex flex-col">
-                            {/*    <Field*/}
-                            {/*        as={TextField}*/}
-                            {/*        id="outlined-basic"*/}
-                            {/*        label="District"*/}
-                            {/*        variant="outlined"*/}
-                            {/*        name="district"*/}
-                            {/*        placeholder="District"*/}
-                            {/*        style={{width: "35ch"}}*/}
-                            {/*    />*/}
-                            {/*    <ErrorMessage name="district" component="div" className="text-red-500" />*/}
-                            {/*</div>*/}
                             <Field
                                 component={DistrictDropdown}
                                 name="district"
+                                label="Select a district"
                                 placeholder="District"
-                                style={{ width: "35ch" }}
+                                districts={indianDistricts}
                             />
                         </div>
                     </SectionWrapper>
                     <div
                         className="grid grid-cols-1 gap-4 sm:grid-cols-4 md:grid-cols-4 items-center justify-items-center mb-8">
-                        <TextField
-                            id="outlined-basic"
-                            label="State"
-                            variant="outlined"
-                            name="state"
-                            placeholder="State"
-                            style={{width: "35ch"}}
-                        />
-                        <TextField
-                            id="outlined-basic"
-                            label="Pincode"
-                            variant="outlined"
-                            name="pincode"
-                            placeholder="Pincode"
-                            style={{width: "35ch"}}
-                        />
-                        <TextField
-                            id="outlined-basic"
-                            label="Landmark"
-                            variant="outlined"
-                            name="landMark"
-                            placeholder="Landmark"
-                            style={{width: "35ch"}}
-                        />
+                        <Field component={StateDropdown} name="state" label="State" placeholder="Select a state"/>
 
-                        {/*<Button variant="contained" color="success" style={{width: "35ch", height: "100%"}}>*/}
-                        {/*    Submit*/}
-                        {/*</Button>*/}
-                        <button
-                            className="group relative overflow-hidden rounded-l bg-green-500 text-lg font-bold text-white h-full" style={{width: "28ch"}}>
-                            Submit
-                            <div
-                                className="absolute inset-0 h-full w-full scale-0 rounded-l transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                        </button>
-                        {/*<Button variant="contained" disableElevation>*/}
-                        {/*    */}
-                        {/*</Button>*/}
-                    </div>
+
+                        <div className="flex flex-col">
+                            <Field
+                                as={TextField}
+                                id="outlined-basic"
+                                label="Pincode"
+                                variant="outlined"
+                                name="pincode"
+                                placeholder="Pincode"
+                                style={{width: "35ch"}}
+                            />
+                            <ErrorMessage name="pincode" component="div" className="text-red-500"/>
+                        </div>
+                        <div className="flex flex-col">
+                            <Field
+                                as={TextField}
+                                id="outlined-basic"
+                                label="Landmark"
+                                variant="outlined"
+                                name="landMark"
+                                placeholder="Landmark"
+                                style={{width: "35ch"}}
+                            />
+                            <ErrorMessage name="landMark" component="div" className="text-red-500"/>
+                        </div>
+                            {/*<Button variant="contained" color="success" style={{width: "35ch", height: "100%"}}>*/}
+                            {/*    Submit*/}
+                            {/*</Button>*/}
+                            <button
+                                className="group relative overflow-hidden rounded-l bg-green-500 text-lg font-bold text-white h-full"
+                                style={{width: "28ch"}}>
+                                Submit
+                                <div
+                                    className="absolute inset-0 h-full w-full scale-0 rounded-l transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                            </button>
+                            {/*<Button variant="contained" disableElevation>*/}
+                            {/*    */}
+                            {/*</Button>*/}
+                        </div>
                 </Form>
             </Formik>
         </LayoutWrapper>
