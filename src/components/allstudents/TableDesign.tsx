@@ -143,7 +143,7 @@ const App: React.FC<AppProps> = ({ data }) => {
                 value: section,
             })),
             filteredValue: filteredInfo.section || null,
-            onFilter: (value: string, record: DataType) => record.section.includes(value),
+            onFilter: (value: any, record: DataType) => record.section.includes(value as string),
             ellipsis: true,
         },
 
@@ -192,8 +192,7 @@ const App: React.FC<AppProps> = ({ data }) => {
                 { text: 'Female', value: 'female' },
             ],
             filteredValue: filteredInfo.gender || null,
-            onFilter: (value: string, record) => record.gender.toLowerCase() === value.toLowerCase()
-
+            onFilter: (value: any, record: DataType) => record.gender.toLowerCase() === value.toLowerCase(),
         },
 
         {
@@ -221,7 +220,7 @@ const App: React.FC<AppProps> = ({ data }) => {
                 value: stclass,
             })),
             filteredValue: filteredInfo.class || null,
-            onFilter: (value: number, record: DataType) => record.studentClass == value,
+            onFilter: (value: any, record: DataType) => record.studentClass === value,
             ellipsis: true,
         },
 

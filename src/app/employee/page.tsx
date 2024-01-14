@@ -1,13 +1,12 @@
 "use client"
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { headings, fields } from '@/constants/empinfo';
 import { Employee } from '@/datatypes/employees/employee.i';
-
 import { LocalBackURL } from "@/constants/constants";
+import StaffEntry from "@/components/staff/StaffEntry";
 
 const EmployeePage = () => {
-    const [employee, setEmployee] = useState<any[]>([]);
+    const [employee, setEmployee] = useState<Employee>();
 
     useEffect(() => {
         async function fetchOneEmployee() {
@@ -24,7 +23,7 @@ const EmployeePage = () => {
                     throw new Error('Failed to fetch employees');
                 }
                 const data = await response.json();
-                setEmployee(data.employee || []);
+                setEmployee(data.employee as Employee);
             } catch (error) {
                 console.error('Error fetching employee:', error);
             }
@@ -34,10 +33,60 @@ const EmployeePage = () => {
     }, []);
 
 
-
+    let initialValues: Employee = {
+        school: '',
+        empName: '',
+        empEmail: '',
+        empRelativeName: '',
+        empGender: '',
+        empDOB: new Date(),
+        empNumberOne: '',
+        empNumberTwo: '',
+        empWhatsappNumber: '',
+        empCategory: '',
+        empReligion: '',
+        empBloodGrp: '',
+        empAadharNumber: '',
+        empId: '',
+        empQualification: '',
+        empClassPreffered: '',
+        empSubjectPreffered: '',
+        empProfile: '',
+        empDepartment: '',
+        empDesignation: '',
+        empPanCardNumber: '',
+        empPfNumber: '',
+        empBankName: '',
+        empBankAcNumber: '',
+        empBankIfscCode: '',
+        empBasicSalary: 0,
+        empHraAmount: 0,
+        empDaAmount: 0,
+        empAllowances: 0,
+        empOtherWages: 0,
+        empPfAmount: 0,
+        empTdsAmount: 0,
+        empEsicAmount: 0,
+        empProfessionalTax: 0,
+        empAddress: '',
+        empVillage: '',
+        empBlock: '',
+        empDistrict: '',
+        empState: '',
+        empPinCode: '',
+        empLandMark: '',
+        empPhoto: '',
+        empSign: '',
+        empExperience: '',
+        empQualificationPhoto: '',
+        empIdProof: '',
+        empPanCardPhoto: '',
+        empAadharCardPhoto: '',
+        empCV: '',
+    };
 
     return (
-        <div className="flex flex-col items-center justify-center ">
+        <div className="">
             <div className="flex flex-col items-center justify-center mb-8">
                 <div className="rounded-full overflow-hidden w-40 h-40 mt-8">
                     <Image
@@ -50,25 +99,7 @@ const EmployeePage = () => {
                     />
                 </div>
             </div>
-
-            <div className="grid grid-cols-4 gap-2">
-                {headings.map((heading, index) => (
-                    <div key={index} className="flex flex-col items-left">
-                        <h2 className="text-lg font-sans mb-2 z-10 relative top-6 text-blue-600 ">
-                            <div className='bg-white p-1 inline-block deco ml-2'>
-                                {heading}
-                            </div>
-                        </h2>
-                        <span className="field-rectangle h-16 w-64 border border-solid border-gray-300 overflow-hidden overflow-ellipsis flex items-center justify-center mb-[-2ch]" style={{ width: "35ch" }}>
-                            {employee && employee.length && employee.length > 0
-                                ? fields[index] === 'empDOB'
-                                    ? new Date((employee[0] as Employee)[fields[index] as keyof Employee]).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                                    : String((employee[0] as Employee)[fields[index] as keyof Employee]) || "N/A"
-                                : "N/A"}
-                        </span>
-                    </div>
-                ))}
-            </div>
+            {employee && <StaffEntry data={initialValues} />}
         </div>
     );
 

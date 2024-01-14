@@ -68,4 +68,21 @@ export const FORM_VALIDATION = Yup.object().shape({
 
     landMark: Yup.string()
         .required('Landmark is required'),
+
+    rollNumber: Yup.number()
+        .typeError('Roll number must be a number')
+        .integer('Roll number must be an integer'),
+
+    aaadharNumber: Yup.string()
+        .matches(/^\d{12}$/, 'Aadhar number must be 12 digits'),
+
+    bloodGroup: Yup.string()
+        .required('Blood group is required'),
+
+    category: Yup.string()
+        .required('Category is required'),
+
+    religion: Yup.string()
+        .required('Religion is required'),
+
 });

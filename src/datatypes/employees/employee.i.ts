@@ -1,4 +1,5 @@
 export interface Employee {
+    school: string;
     empName: string;
     empEmail: string;
     empRelativeName: string;
@@ -13,9 +14,10 @@ export interface Employee {
     empAadharNumber: string;
     empId: string;
     empQualification: string;
-    empClassPreffered: string;
+    empClassPreffered?: string;
+    empSubjectPreffered?: string;
     empProfile: string;
-    empDepartment: string;
+    empDepartment?: string;
     empDesignation: string;
     empPanCardNumber: string;
     empPfNumber: string;
@@ -46,5 +48,4 @@ export interface Employee {
     empPanCardPhoto: string;
     empAadharCardPhoto: string;
     empCV: string;
-
 }

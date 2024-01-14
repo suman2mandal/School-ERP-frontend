@@ -1,12 +1,10 @@
 "use client"
 import { useState, FormEvent } from 'react';
 import React from 'react';
+import Image from 'next/image';
 
-interface LoginPageProps {
-    onSubmit: (schoolId: string, schoolPassword: string) => void;
-}
 
-const LoginPage: React.FC<LoginPageProps> = ({ onSubmit, schoolId, schoolPassword, setSchoolId, setSchoolPassword }) => {
+const LoginPage: any = ({ onSubmit, schoolId, schoolPassword, setSchoolId, setSchoolPassword }:{onSubmit:any, schoolId:any, schoolPassword:any, setSchoolId:any, setSchoolPassword:any}) => {
     
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -20,7 +18,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSubmit, schoolId, schoolPasswor
             <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
                 <div className="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10">
                     <div className="self-start hidden lg:flex flex-col text-white">
-                        <img src="" className="mb-3" alt="Logo" />
+                        <Image src="" height={100} width={100} className="mb-3" alt="Logo" />
                         <h1 className="mb-3 font-bold text-5xl">Hi ! Welcome Back </h1>
                         <p className="pr-3">
                             Elevate education with SchoolInt: Transforming school management through innovation. Join us for an efficient and successful learning experience. 🚀📚</p>

@@ -2,11 +2,8 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { LocalBackURL } from "@/constants/constants";
-import { headings, fields } from '@/constants/studentinfo';
 import { Student } from '@/datatypes/student/student.i';
-import { Formik, Field, Form } from 'formik';
-import TextField from '@mui/material/TextField';
-import { useFormikContext } from 'formik';
+import StudentEntry from "@/components/student/StudentEntry";
 
 const StudentPage = () => {
 
@@ -37,8 +34,44 @@ const StudentPage = () => {
         fetchOneStudent();
     }, []);
 
+    let initialValues: Student = {
+        registerationNumber: '1',
+        registerationDate: '2024-01-31',
+        studentClass: 0,
+        image: '',
+        phoneNumber: '',
+        section: '',
+        studentName: '',
+        fatherName: '',
+        motherName: '',
+        gender: '',
+        dob: '2024-01-31',
+        alternatePhoneNumber: '',
+        email: '',
+        address: '',
+        town: '',
+        city: '',
+        district: 'Angul',
+        state: 'Tripura',
+        pincode: '',
+        bloodGroup: '',
+        category: '',
+        religion: '',
+        landMark: '',
+        lastSchoolName: "",
+        lastClass: "",
+        lastClassScore: "",
+        lastClassYear: "",
+        lastClassTC: "",
+        lastClassReason: "",
+        lastClassBoard: "",
+        lastClassMedium: "",
+        lastClassSchool: "",
+        lastClassCity: "",
+    };
+
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="">
             <div className="flex flex-col items-center justify-center ">
                 <div className="mb-8">
                     <div className="rounded-full overflow-hidden w-40 h-40 mt-10">
@@ -55,26 +88,7 @@ const StudentPage = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-8 ">
-                {headings.map((heading, index) => (
-                    <div key={index} className="flex flex-col">
-                        <h2 className="text-lg font-sans mb-2 z-10 relative top-6 text-blue-600">
-                            <div className='bg-white p-1 inline-block deco ml-5'>
-                                {heading}
-                            </div>
-                        </h2>
-                        <span className="field-rectangle h-16 border border-solid border-gray-300 overflow-hidden overflow-ellipsis flex items-center justify-center mb-[-4ch]" style={{ width: "35ch" }}>
-                            {student && student.length && student.length > 0
-                                ? fields[index] === 'registerationDate' || fields[index] === 'dob'
-                                    ? (student[0] as Student)[fields[index] as keyof Student]
-                                        ? new Date((student[0] as Student)[fields[index] as keyof Student] as string).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                                        : "N/A"
-                                    : (student[0] as Student)[fields[index] as keyof Student] ?? "N/A"
-                                : "N/A"}
-                        </span>
-                    </div>
-                ))}
-            </div>
+            {student && <StudentEntry data={initialValues}/>}
         </div>
     );
 
