@@ -13,6 +13,11 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        'source-sans-pro': ['Source Sans Pro'],
+        'mitr': ['Mitr'],
+        'roboto-slab': ['Roboto Slab'],
+      },
     },
   },
   plugins: [],
