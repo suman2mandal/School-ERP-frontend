@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import App from '@/components/student/TableDesign';
 import { LocalBackURL } from "@/constants/constants";
+import LayoutWrapper from "@/components/Wrapper/LayoutWrapper";
 const StudentsPage = () => {
     const [students, setStudents] = useState<any[]>([]);
 
@@ -22,7 +23,7 @@ const StudentsPage = () => {
                 setStudents(data.students || []);
 
             } catch (error) {
-                console.error('Error fetching students:', error);
+                console.error('Error fetching ViewStudents:', error);
             }
         }
 
@@ -30,10 +31,9 @@ const StudentsPage = () => {
     }, []);
 
     return (
-        <div className='bg-white'>
-            <h1>All Students Classwise</h1>
+        <LayoutWrapper>
             <App data={students} />
-        </div>
+        </LayoutWrapper>
 
     );
 };

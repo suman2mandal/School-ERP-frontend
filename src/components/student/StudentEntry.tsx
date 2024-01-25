@@ -71,7 +71,7 @@ const StudentForm: any = ({data}:{data:any}) => {
     }
     const StateDropdown: React.FC<StateDropdownProps> = ({ field, form, label, placeholder }) => (
         <div className="flex flex-col">
-            <FormControl variant="outlined" style={{ width: '35ch' }}>
+            <FormControl variant="outlined" style={{ width: '38ch' }}>
                 <Autocomplete
                     id="state"
                     options={indianStates}
@@ -96,7 +96,7 @@ const StudentForm: any = ({data}:{data:any}) => {
 
     const DistrictDropdown: React.FC<DistrictDropdownProps> = ({ field, form, label, placeholder, districts }) => (
         <div className="flex flex-col">
-            <FormControl variant="outlined" style={{ width: '35ch' }}>
+            <FormControl variant="outlined" style={{ width: '38ch' }}>
                 <Autocomplete
                     id="district"
                     options={districts}
@@ -116,7 +116,7 @@ const StudentForm: any = ({data}:{data:any}) => {
     const GenderSelect = () => {
         return (
             <div className="flex flex-col">
-                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                <FormControl variant="outlined" style={{ width: '38ch' }}>
                     <InputLabel id="gender-label">Gender</InputLabel>
                     <Field
                         as={Select}
@@ -181,7 +181,7 @@ const StudentForm: any = ({data}:{data:any}) => {
     const ReligionSelect = () => {
         return (
             <div className="flex flex-col">
-                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                <FormControl variant="outlined" style={{ width: '38ch' }}>
                     <InputLabel id="religion-label">Religion</InputLabel>
                     <Field
                         as={Select}
@@ -206,7 +206,7 @@ const StudentForm: any = ({data}:{data:any}) => {
     const CategorySelect = () => {
         return (
             <div className="flex flex-col">
-                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                <FormControl variant="outlined" style={{ width: '38ch' }}>
                     <InputLabel id="category-label">Category</InputLabel>
                     <Field
                         as={Select}
@@ -230,7 +230,7 @@ const StudentForm: any = ({data}:{data:any}) => {
     const BloodGroupSelect = () => {
         return (
             <div className="flex flex-col">
-                <FormControl variant="outlined" style={{ width: '35ch' }}>
+                <FormControl variant="outlined" style={{ width: '38ch' }}>
                     <InputLabel id="bloodGroup-label">Blood Group</InputLabel>
                     <Field
                         as={Select}
@@ -259,7 +259,6 @@ const StudentForm: any = ({data}:{data:any}) => {
     const isSubmitting = data ? true: false;
 
     return (
-        <div className="px-8 py-5">
         <LayoutWrapper>
             <h1>Student Form</h1>
             <Formik
@@ -293,7 +292,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="studentName"
                                 placeholder="Student Name"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="studentName" component="div" className="text-red-500"/>
@@ -307,7 +306,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="fatherName"
                                 placeholder="Father's Name"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="fatherName" component="div" className="text-red-500"/>
@@ -320,7 +319,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="motherName"
                                 placeholder="Mother's Name"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="motherName" component="div" className="text-red-500"/>
@@ -332,7 +331,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 name="dob"
                                 label="DOB"
                                 type="string"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="dob" component="div" className="text-red-500"/>
@@ -372,7 +371,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="phoneNumber"
                                 placeholder="Phone Number"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="phoneNumber" component="div" className="text-red-500"/>
@@ -385,7 +384,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="alternatePhoneNumber"
                                 placeholder="Alternate Phone Number"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="alternatePhoneNumber" component="div" className="text-red-500"/>
@@ -398,7 +397,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="email"
                                 placeholder="Email"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="email" component="div" className="text-red-500"/>
@@ -417,7 +416,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="address"
                                 placeholder="Address"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="address" component="div" className="text-red-500"/>
@@ -430,7 +429,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="town"
                                 placeholder="Town"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="town" component="div" className="text-red-500"/>
@@ -443,7 +442,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="city"
                                 placeholder="City"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="city" component="div" className="text-red-500"/>
@@ -467,7 +466,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="pincode"
                                 placeholder="Pincode"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="pincode" component="div" className="text-red-500"/>
@@ -480,7 +479,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="landMark"
                                 placeholder="Landmark"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="landMark" component="div" className="text-red-500"/>
@@ -498,7 +497,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="registerationNumber"
                                 placeholder="Registration Number"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="registerationNumber" component="div" className="text-red-500"/>
@@ -511,7 +510,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="registerationDate"
                                 placeholder="Registration Date"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="registerationDate" component="div" className="text-red-500"/>
@@ -524,7 +523,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="studentClass"
                                 placeholder="Student Class"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="studentClass" component="div" className="text-red-500"/>
@@ -537,7 +536,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="section"
                                 placeholder="Section"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="section" component="div" className="text-red-500"/>
@@ -558,7 +557,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastSchoolName"
                                 placeholder="Last School Name"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                         </div>
@@ -570,7 +569,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClass"
                                 placeholder="Last Class"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                         </div>
@@ -584,7 +583,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassScore"
                                 placeholder="Last Class Score"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                         </div>
@@ -598,7 +597,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassYear"
                                 placeholder="Last passing Year"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                         </div>
@@ -612,7 +611,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassTC"
                                 placeholder="Last school TC"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                         </div>
@@ -626,7 +625,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassReason"
                                 placeholder="School changing Reason"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                         </div>
@@ -640,7 +639,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassBoard"
                                 placeholder="Last School Board"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                         </div>
@@ -654,7 +653,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassMedium"
                                 placeholder="Last school medium"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                                 />
                         </div>
@@ -668,7 +667,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassSchool"
                                 placeholder="Last Class School"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="lastClassSchool" component="div" className="text-red-500"/>
@@ -683,7 +682,7 @@ const StudentForm: any = ({data}:{data:any}) => {
                                 variant="outlined"
                                 name="lastClassCity"
                                 placeholder="Last Class City"
-                                style={{width: "35ch"}}
+                                style={{width: '38ch'}}
                                 disabled={isSubmitting}
                             />
                             <ErrorMessage name="lastClassCity" component="div" className="text-red-500"/>
@@ -703,7 +702,6 @@ const StudentForm: any = ({data}:{data:any}) => {
                 </Form>
             </Formik>
         </LayoutWrapper>
-        </div>
     );
 };
 

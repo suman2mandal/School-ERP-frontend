@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 import App from '@/components/allstudents/TableDesign';
+import axios from 'axios';
 import { LocalBackURL } from "@/constants/constants";
 const StudentsPage = () => {
     const [students, setStudents] = useState<any[]>([]);
@@ -9,19 +10,14 @@ const StudentsPage = () => {
         async function fetchAllStudents() {
             try {
                 const school = '659790d29d43fe7d1758bbda';
-                const response = await fetch(LocalBackURL + '/api/students/allstudents', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ school }),
-                });
+                const response = await axios.get(LocalBackURL + '/api/v1/students/allStudents');
 
-                const data = await response.json();
+                const data = response.data;
+                // console.log(data,"data");
                 setStudents(data.students || []);
 
             } catch (error) {
-                console.error('Error fetching students:', error);
+                console.error('Error fetching ViewStudents:', error);
             }
         }
 

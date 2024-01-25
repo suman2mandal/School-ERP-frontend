@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -42,19 +43,22 @@ export default function Home() {
                       </button>
                     </div>
                   </div>
-                  <div className="hidden md:flex items-center">
-                    <a className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
-                      Student Section
-                    </a>
-                    <a className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
-                      Teacher Section
-                    </a>
-                    <a className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
-                      Course Management
-                    </a>
-                    <a className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
-                      Fee Management
-                    </a>
+                  <div>
+                    <Link href="/student-section/ViewStudents" className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
+                        Student Section
+                    </Link>
+
+                    <Link href="/teacher-section" className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
+                        Teacher Section
+                    </Link>
+
+                    <Link href="/course-management" className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
+                        Course Management
+                    </Link>
+
+                    <Link href="/fee-management" className="text-sm uppercase mx-3 text-white cursor-pointer hover:text-indigo-600">
+                        Fee Management
+                    </Link>
                   </div>
                 </div>
               </nav>
@@ -68,7 +72,7 @@ export default function Home() {
                 </h1>
                 <div className="max-w-md">
                   <p className="font-source-sans-pro text-indigo-500 mt-6 text-lg">
-                    Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt
+                  Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt
                     cras sociis, parturient enim montes.
                   </p>
                 </div>

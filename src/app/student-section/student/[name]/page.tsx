@@ -4,33 +4,24 @@ import Image from 'next/image';
 import { LocalBackURL } from "@/constants/constants";
 import { Student } from '@/datatypes/student/student.i';
 import StudentEntry from "@/components/student/StudentEntry";
+import axios from "axios";
 
-const StudentPage = () => {
+const StudentPage = ({params}:any) => {
 
     const [student, setStudent] = useState<Student | any | null>(null);
 
     useEffect(() => {
         async function fetchOneStudent() {
             try {
-                const school = '659790d29d43fe7d1758bbda';
-                const registerationNumber = 259;
-                const response = await fetch(LocalBackURL + '/api/students/onestudent', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ school, registerationNumber }),
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to fetch students');
-                }
-                const data = await response.json();
+                const response = await axios.post(LocalBackURL+"/api/v1/students/oneStudent",{
+                    "registerationNumber": params.name
+                })
+                const data = await response.data;
                 setStudent(data.student || null);
             } catch (error) {
-                console.error('Error fetching students:', error);
+                console.error('Error fetching ViewStudents:', error);
             }
         }
-
         fetchOneStudent();
     }, []);
 
@@ -70,26 +61,12 @@ const StudentPage = () => {
         lastClassCity: "",
     };
 
+    initialValues = student || initialValues;
+
     return (
-        <div className="">
-            <div className="flex flex-col items-center justify-center ">
-                <div className="mb-8">
-                    <div className="rounded-full overflow-hidden w-40 h-40 mt-10">
-                        <Image
-                            className="rounded-full"
-                            src="/student-icon.png"
-                            alt="image description"
-                            layout="responsive"
-                            width={800}
-                            height={800}
-                        />
-                    </div>
-
-                </div>
-            </div>
-
+        <>
             {student && <StudentEntry data={initialValues}/>}
-        </div>
+        </>
     );
 
 

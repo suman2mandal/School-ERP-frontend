@@ -8,7 +8,11 @@ const LayoutWrapper = ({
     className?: string;
     children: ReactNode;
 }) => {
-    return <div className={cn("p-4 lg:ml-10 lg:mr-10 rounded-md shadow-lg", className)}>{children}</div>;
+    return <div className="w-full flex justify-center">
+        <div className={cn("p-6 rounded-md shadow-lg", className)}>
+            {children}
+        </div>
+    </div>;
 };
 
 export default LayoutWrapper;
